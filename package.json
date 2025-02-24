@@ -1,0 +1,35 @@
+{
+  "name": "strike-axios",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Resolvr-io/strike-axios.git"
+  },
+  "keywords": [
+    "strike",
+    "bitcoin",
+    "lightning"
+  ],
+  "author": "tvolk131",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Resolvr-io/strike-axios/issues"
+  },
+  "homepage": "https://github.com/Resolvr-io/strike-axios#readme",
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "eslint": "^9.21.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.1"
+  }
+}

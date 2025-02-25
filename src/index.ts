@@ -7,6 +7,10 @@ import type {
 import type { Invoice, IssueInvoiceRequest } from "./types/invoices";
 import type { CreatePayoutRequest, Payout } from "./types/payouts";
 
+export type { BankPaymentMethod, CreateBankPaymentMethodRequest };
+export type { Invoice, IssueInvoiceRequest };
+export type { CreatePayoutRequest, Payout };
+
 export class StrikeAxios {
   private axiosInstance: AxiosInstance;
 

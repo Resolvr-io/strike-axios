@@ -6,10 +6,32 @@ import type {
 } from "./types/bankPaymentMethods";
 import type { Invoice, IssueInvoiceRequest } from "./types/invoices";
 import type { CreatePayoutRequest, Payout } from "./types/payouts";
+import {
+  FIAT_CURRENCIES,
+  ALL_CURRENCIES,
+  FiatCurrency,
+  AnyCurrency,
+  Amount,
+  isFiatCurrency,
+  isAnyCurrency,
+  tryToFiatCurrency,
+  tryToAnyCurrency,
+} from "./types/common";
 
 export type { BankPaymentMethod, CreateBankPaymentMethodRequest };
 export type { Invoice, IssueInvoiceRequest };
 export type { CreatePayoutRequest, Payout };
+export type {
+  FIAT_CURRENCIES,
+  ALL_CURRENCIES,
+  FiatCurrency,
+  AnyCurrency,
+  Amount,
+  isFiatCurrency,
+  isAnyCurrency,
+  tryToFiatCurrency,
+  tryToAnyCurrency,
+};
 
 export class StrikeAxios {
   private axiosInstance: AxiosInstance;

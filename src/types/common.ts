@@ -8,3 +8,11 @@ export type Amount<T extends string> = {
   amount: string;
   currency: T;
 };
+
+export const isFiatCurrency = (value: string): value is FiatCurrency => {
+  return value in FIAT_CURRENCIES;
+};
+
+export const isAnyCurrency = (value: string): value is AnyCurrency => {
+  return value in ALL_CURRENCIES;
+};

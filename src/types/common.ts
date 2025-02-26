@@ -9,10 +9,14 @@ export type Amount<T extends string> = {
   currency: T;
 };
 
-export const isFiatCurrency = (value: string): value is FiatCurrency => {
-  return (FIAT_CURRENCIES as readonly string[]).indexOf(value) !== -1;
+export const tryToFiatCurrency = (value: string): FiatCurrency | undefined => {
+  if ((FIAT_CURRENCIES as readonly string[]).indexOf(value) !== -1) {
+    return value as FiatCurrency;
+  }
 };
 
-export const isAnyCurrency = (value: string): value is AnyCurrency => {
-  return (ALL_CURRENCIES as readonly string[]).indexOf(value) !== -1;
+export const tryToAnyCurrency = (value: string): AnyCurrency | undefined => {
+  if ((ALL_CURRENCIES as readonly string[]).indexOf(value) !== -1) {
+    return value as AnyCurrency;
+  }
 };

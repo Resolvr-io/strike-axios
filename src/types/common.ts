@@ -9,6 +9,11 @@ export type Amount<T extends string> = {
   currency: T;
 };
 
+export type PaginationList<T> = {
+  items: T[];
+  count: number;
+};
+
 export const isFiatCurrency = (value: string): value is FiatCurrency => {
   return (FIAT_CURRENCIES as readonly string[]).indexOf(value) !== -1;
 };

@@ -4,8 +4,6 @@ import type {
   BankPaymentMethod,
   CreateBankPaymentMethodRequest,
 } from "./types/bankPaymentMethods";
-import type { Invoice, IssueInvoiceRequest } from "./types/invoices";
-import type { CreatePayoutRequest, Payout } from "./types/payouts";
 import {
   FIAT_CURRENCIES,
   ALL_CURRENCIES,
@@ -16,11 +14,17 @@ import {
   isAnyCurrency,
   tryToFiatCurrency,
   tryToAnyCurrency,
+  PaginationList,
 } from "./types/common";
+import type { Invoice, IssueInvoiceRequest } from "./types/invoices";
+import type { CreatePayoutRequest, Payout } from "./types/payouts";
+import {
+  CreateReceiveRequestRequest,
+  Receive,
+  ReceiveRequest,
+} from "./types/receiveRequests";
 
 export type { BankPaymentMethod, CreateBankPaymentMethodRequest };
-export type { Invoice, IssueInvoiceRequest };
-export type { CreatePayoutRequest, Payout };
 export type {
   FIAT_CURRENCIES,
   ALL_CURRENCIES,
@@ -31,7 +35,11 @@ export type {
   isAnyCurrency,
   tryToFiatCurrency,
   tryToAnyCurrency,
+  PaginationList,
 };
+export type { Invoice, IssueInvoiceRequest };
+export type { CreatePayoutRequest, Payout };
+export type { CreateReceiveRequestRequest, Receive, ReceiveRequest };
 
 export class StrikeAxios {
   private axiosInstance: AxiosInstance;
@@ -143,5 +151,54 @@ export class StrikeAxios {
     return (
       await this.axiosInstance.patch<Payout>(`payouts/${payoutId}/initiate`)
     ).data;
+  }
+
+  public async findReceiveRequestById(
+    receiveRequestId: string,
+  ): Promise<ReceiveRequest | undefined> {
+    const response = await this.axiosInstance.get<ReceiveRequest>(
+      `receive-requests/${receiveRequestId}`,
+      {
+        // If the status is 404, don't throw an error. We'll return undefined instead.
+        validateStatus: (status) => {
+          return (status >= 200 && status < 300) || status === 404;
+        },
+      },
+    );
+
+    if (response.status === 404) {
+      return undefined;
+    } else {
+      return response.data;
+    }
+  }
+
+  public async createReceiveRequest(
+    request: CreateReceiveRequestRequest,
+  ): Promise<ReceiveRequest> {
+    return (
+      await this.axiosInstance.post<ReceiveRequest>("receive-requests", request)
+    ).data;
+  }
+
+  // TODO: Add support for query parameters.
+  public async getReceivesForReceiveRequest(
+    receiveRequestId: string,
+  ): Promise<PaginationList<Receive> | undefined> {
+    const response = await this.axiosInstance.get<PaginationList<Receive>>(
+      `receive-requests/${receiveRequestId}/receives`,
+      {
+        // If the status is 404, don't throw an error. We'll return undefined instead.
+        validateStatus: (status) => {
+          return (status >= 200 && status < 300) || status === 404;
+        },
+      },
+    );
+
+    if (response.status === 404) {
+      return undefined;
+    } else {
+      return response.data;
+    }
   }
 }
